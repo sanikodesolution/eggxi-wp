@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'EGGXI_VERSION', '1.1.0' );
+define( 'EGGXI_VERSION', '1.1.1' );
 define( 'EGGXI_DIR', get_template_directory() );
 define( 'EGGXI_URI', get_template_directory_uri() );
 

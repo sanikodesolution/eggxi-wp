@@ -82,35 +82,59 @@
 		}).init();
 	}
 
+	/* ----- Safe Owl helper: loop needs enough slides or Owl throws clone error ----- */
+	function eggxiOwlItemCount($el) {
+		return $el.children('.item').length || $el.children().not('.owl-stage-outer, script').length;
+	}
+
+	function eggxiCanLoop(count, minItems) {
+		minItems = minItems || 2;
+		return count >= minItems;
+	}
+
 	/* ----- Header text ticker ----- */
 	if ($('.ht_text_slider').length && typeof $.fn.owlCarousel === 'function') {
-		$('.ht_text_slider').owlCarousel({
-			animateIn: 'fadeIn',
-			animateOut: 'fadeOut',
-			center: true,
-			loop: true,
-			margin: 0,
-			dots: false,
-			nav: false,
-			autoplayHoverPause: true,
-			autoplay: true,
-			autoHeight: true,
-			smartSpeed: 2000,
-			items: 1
+		$('.ht_text_slider').each(function () {
+			var $el = $(this);
+			var count = eggxiOwlItemCount($el);
+			if (!count) {
+				return;
+			}
+			$el.owlCarousel({
+				animateIn: 'fadeIn',
+				animateOut: 'fadeOut',
+				center: true,
+				loop: eggxiCanLoop(count, 2),
+				margin: 0,
+				dots: false,
+				nav: false,
+				autoplayHoverPause: true,
+				autoplay: count > 1,
+				autoHeight: true,
+				smartSpeed: 2000,
+				items: 1
+			});
 		});
 	}
 
 	/* ----- Single post gallery ----- */
 	if ($('.img_post_slider').length && typeof $.fn.owlCarousel === 'function') {
-		$('.img_post_slider').owlCarousel({
-			loop: true,
-			margin: 15,
-			dots: true,
-			nav: false,
-			autoplayHoverPause: true,
-			autoplay: true,
-			smartSpeed: 1200,
-			items: 1
+		$('.img_post_slider').each(function () {
+			var $el = $(this);
+			var count = eggxiOwlItemCount($el);
+			if (!count) {
+				return;
+			}
+			$el.owlCarousel({
+				loop: eggxiCanLoop(count, 2),
+				margin: 15,
+				dots: count > 1,
+				nav: false,
+				autoplayHoverPause: true,
+				autoplay: count > 1,
+				smartSpeed: 1200,
+				items: 1
+			});
 		});
 	}
 
@@ -123,61 +147,86 @@
 		if ($('.home1_slider').length) {
 			$('.home1_slider').each(function () {
 				var $el = $(this);
-				$el.owlCarousel({
-					autoplay: $el.data('autoplay'),
-					autoHeight: true,
-					autoWidth: $el.data('autoWidth'),
-					autoplayHoverPause: $el.data('autoplayHoverPause'),
-					center: $el.data('center'),
-					loop: $el.data('loop'),
-					margin: $el.data('margin'),
-					nav: $el.data('nav'),
-					navText: [
-						'<i class="flaticon-left"></i>',
-						'<i class="flaticon-right"></i>'
-					],
-					dots: $el.data('dots'),
-					rtl: $el.data('rtl'),
-					smartSpeed: $el.data('smartSpeed') || $el.data('smartspeed') || 1500,
-					responsive: {
-						320: { items: 1, center: false },
-						768: { items: 1 },
-						992: { items: 2 },
-						1200: { items: 2 }
+				var count = eggxiOwlItemCount($el);
+				if (!count) {
+					return;
+				}
+				var wantLoop = $el.data('loop');
+				// Desktop shows 2 items — Owl loop/clone needs more slides than visible items.
+				var safeLoop = wantLoop && count >= 3;
+				try {
+					$el.owlCarousel({
+						autoplay: !!$el.data('autoplay') && count > 1,
+						autoHeight: true,
+						autoWidth: $el.data('autoWidth'),
+						autoplayHoverPause: $el.data('autoplayHoverPause'),
+						center: count > 1 ? $el.data('center') : false,
+						loop: safeLoop,
+						margin: $el.data('margin') || 0,
+						nav: !!$el.data('nav') && count > 1,
+						navText: [
+							'<i class="flaticon-left"></i>',
+							'<i class="flaticon-right"></i>'
+						],
+						dots: $el.data('dots'),
+						rtl: $el.data('rtl'),
+						smartSpeed: $el.data('smartSpeed') || $el.data('smartspeed') || 1500,
+						responsive: {
+							320: { items: 1, center: false },
+							768: { items: 1 },
+							992: { items: Math.min(2, count) },
+							1200: { items: Math.min(2, count) }
+						}
+					});
+				} catch (err) {
+					if (window.console && console.warn) {
+						console.warn('Eggxi home1_slider init skipped:', err);
 					}
-				});
+				}
 			});
 		}
 
 		if ($('.three-grid-slider').length) {
 			$('.three-grid-slider').each(function () {
 				var $el = $(this);
-				$el.owlCarousel({
-					animateIn: $el.data('animateIn'),
-					autoplay: $el.data('autoplay'),
-					autoHeight: true,
-					autoplayHoverPause: $el.data('autoplayHoverPause'),
-					autoWidth: $el.data('autoWidth'),
-					center: $el.data('center'),
-					items: $el.data('items'),
-					loop: $el.data('loop'),
-					margin: $el.data('margin'),
-					nav: $el.data('nav'),
-					navText: [
-						'<i class="flaticon-left"></i>',
-						'<i class="flaticon-right"></i>'
-					],
-					dots: $el.data('dots'),
-					rtl: $el.data('rtl'),
-					smartSpeed: $el.data('smartSpeed') || 1000,
-					responsive: {
-						0: { items: 1, center: false },
-						600: { items: 2, center: false },
-						768: { items: 2 },
-						992: { items: 3 },
-						1200: { items: 3 }
+				var count = eggxiOwlItemCount($el);
+				if (!count) {
+					return;
+				}
+				var wantLoop = $el.data('loop');
+				var safeLoop = wantLoop && count >= 4;
+				try {
+					$el.owlCarousel({
+						animateIn: $el.data('animateIn'),
+						autoplay: !!$el.data('autoplay') && count > 1,
+						autoHeight: true,
+						autoplayHoverPause: $el.data('autoplayHoverPause'),
+						autoWidth: $el.data('autoWidth'),
+						center: count > 1 ? $el.data('center') : false,
+						items: $el.data('items') || 3,
+						loop: safeLoop,
+						margin: $el.data('margin') || 0,
+						nav: !!$el.data('nav') && count > 1,
+						navText: [
+							'<i class="flaticon-left"></i>',
+							'<i class="flaticon-right"></i>'
+						],
+						dots: $el.data('dots'),
+						rtl: $el.data('rtl'),
+						smartSpeed: $el.data('smartSpeed') || 1000,
+						responsive: {
+							0: { items: 1, center: false },
+							600: { items: Math.min(2, count), center: false },
+							768: { items: Math.min(2, count) },
+							992: { items: Math.min(3, count) },
+							1200: { items: Math.min(3, count) }
+						}
+					});
+				} catch (err) {
+					if (window.console && console.warn) {
+						console.warn('Eggxi three-grid-slider init skipped:', err);
 					}
-				});
+				}
 			});
 		}
 	}

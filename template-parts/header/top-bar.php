@@ -30,16 +30,16 @@
 				</div>
 			</div>
 			<div class="col-lg-6">
-				<div class="ht_text_slider text-center">
-					<?php
-					$notice = eggxi_get_header_notice();
-					if ( $notice ) :
-						?>
+				<?php
+				$notice = eggxi_get_header_notice();
+				if ( $notice ) :
+					?>
+					<div class="ht_text_slider text-center">
 						<div class="item">
 							<p><?php echo wp_kses_post( $notice ); ?></p>
 						</div>
-					<?php endif; ?>
-				</div>
+					</div>
+				<?php endif; ?>
 			</div>
 			<div class="col-lg-3">
 				<div class="header_top_social_widget tac-smd text-end text-right">

@@ -383,7 +383,7 @@ function eggxi_the_category_badge( $tag_class = 'bgc-thm', $post_id = null ) {
 	}
 
 	printf(
-		'<div class="tag %1$s"><a href="%2$s">%3$s</a></div>',
+		'<div class="tag %1$s color-white"><a class="color-white" href="%2$s">%3$s</a></div>',
 		esc_attr( $tag_class ),
 		esc_url( get_category_link( $term->term_id ) ),
 		esc_html( $term->name )

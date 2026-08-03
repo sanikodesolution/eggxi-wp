@@ -1,6 +1,50 @@
 (function ($) {
 	'use strict';
 
+	/* ----- Patch Owl: never loop/clone when not enough slides (prevents .clone crash) ----- */
+	if (typeof $.fn.owlCarousel === 'function' && !$.fn.owlCarousel._eggxiPatched) {
+		var eggxiOwlOriginal = $.fn.owlCarousel;
+		$.fn.owlCarousel = function (options) {
+			if (typeof options === 'object' || options === undefined) {
+				options = $.extend({}, options || {});
+				return this.each(function () {
+					var $el = $(this);
+					var count = $el.children('.item').length;
+					if (!count) {
+						count = $el.children().not('script').length;
+					}
+					if (!count) {
+						return;
+					}
+					var opts = $.extend({}, options);
+					var visible = 1;
+					if (opts.responsive) {
+						var width = window.innerWidth || document.documentElement.clientWidth;
+						Object.keys(opts.responsive).sort(function (a, b) {
+							return parseInt(a, 10) - parseInt(b, 10);
+						}).forEach(function (bp) {
+							if (width >= parseInt(bp, 10) && opts.responsive[bp].items) {
+								visible = opts.responsive[bp].items;
+							}
+						});
+					} else if (opts.items) {
+						visible = opts.items;
+					}
+					if (count <= visible) {
+						opts.loop = false;
+						opts.center = false;
+						opts.autoplay = false;
+						opts.rewind = false;
+					}
+					eggxiOwlOriginal.call($el, opts);
+				});
+			}
+			return eggxiOwlOriginal.apply(this, arguments);
+		};
+		$.fn.owlCarousel._eggxiPatched = true;
+		$.fn.owlCarousel.Constructor = eggxiOwlOriginal.Constructor;
+	}
+
 	/* ----- Preloader ----- */
 	function preloaderLoad() {
 		if ($('.preloader').length) {

@@ -4,7 +4,7 @@ Theme URI: https://unlockdesign.com/
 Author: unlockdesign
 Author URI: https://unlockdesign.com/
 Description: Eggxi personal blog theme converted from the Eggxi Bootstrap 5 HTML template.
-Version: 1.1.1
+Version: 1.1.4
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -14,7 +14,39 @@ Text Domain: eggxi
 Tags: blog, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready, elementor, full-width-template
 */
 
-/* Visual styles live in assets/css/. Root style.css adds WP helpers. */
+/* Header site logo size (overridden by Customizer value when set). */
+.header-middle .ulockd-main-logo img,
+.header-middle .custom-logo-link img,
+.header-middle .custom-logo {
+	display: block;
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	max-height: 90px;
+}
+
+.header-middle .welcm-ht {
+	display: flex;
+	align-items: center;
+	min-height: 60px;
+}
+
+/* Category badges on cards — link text must stay white on teal/orange pills */
+.home1_blog_post .details .tag,
+.home1_blog_post .details .tag a,
+.home1_post_style .thumb .tag,
+.home1_post_style .thumb .tag a,
+.fblog_post .tag,
+.fblog_post .tag a,
+.recent_latest_post .media .tag,
+.recent_latest_post .media .tag a,
+.sidebar_recent_post_widget .media .tag,
+.tag.bgc-thm,
+.tag.bgc-thm a,
+.tag.bgc-orange,
+.tag.bgc-orange a {
+	color: #ffffff !important;
+}
 
 /* Responsive 16:9 video embeds (post format: video). */
 .responsive-video-container,

@@ -52,6 +52,29 @@ function eggxi_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
+		'eggxi_logo_max_height',
+		array(
+			'default'           => 60,
+			'sanitize_callback' => 'absint',
+			'transport'         => 'refresh',
+		)
+	);
+	$wp_customize->add_control(
+		'eggxi_logo_max_height',
+		array(
+			'label'       => __( 'Header logo max height (px)', 'eggxi' ),
+			'description' => __( 'Controls Site Identity logo size in the header. Try 50–80px.', 'eggxi' ),
+			'section'     => 'eggxi_header_top',
+			'type'        => 'number',
+			'input_attrs' => array(
+				'min'  => 24,
+				'max'  => 200,
+				'step' => 1,
+			),
+		)
+	);
+
+	$wp_customize->add_setting(
 		'eggxi_show_lang_switcher',
 		array(
 			'default'           => true,

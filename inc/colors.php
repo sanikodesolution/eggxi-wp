@@ -132,6 +132,19 @@ function eggxi_enqueue_dynamic_colors() {
 	}
 
 	$css = eggxi_get_dynamic_color_css();
+
+	$logo_h = absint( get_theme_mod( 'eggxi_logo_max_height', 60 ) );
+	if ( $logo_h < 24 ) {
+		$logo_h = 24;
+	}
+	if ( $logo_h > 200 ) {
+		$logo_h = 200;
+	}
+	$css .= sprintf(
+		'.header-middle .ulockd-main-logo img,.header-middle .custom-logo-link img,.header-middle .custom-logo{max-height:%1$dpx;height:auto;width:auto;}.header-middle .welcm-ht{min-height:%1$dpx;}',
+		$logo_h
+	);
+
 	if ( ! $css ) {
 		return;
 	}

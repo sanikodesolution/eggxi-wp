@@ -84,7 +84,8 @@ a {
     text-decoration: none;
     outline: none; }
   a img {
-    border: none; }
+    border: none;
+  object-fit: cover; }
 
 ::selection {
   background: #222222;

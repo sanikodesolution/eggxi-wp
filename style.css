@@ -4,7 +4,7 @@ Theme URI: https://unlockdesign.com/
 Author: unlockdesign
 Author URI: https://unlockdesign.com/
 Description: Eggxi personal blog theme converted from the Eggxi Bootstrap 5 HTML template.
-Version: 1.1.4
+Version: 1.1.5
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -124,4 +124,54 @@ Tags: blog, custom-logo, custom-menu, featured-images, threaded-comments, transl
 		height: 300px;
 		min-height: 166px;
 	}
+}
+
+/* Featured Post grid — title fit & readability */
+.feature_blog_post .home1_blog_post .thumb .overlay {
+	background: linear-gradient(
+		180deg,
+		rgba(29, 41, 62, 0) 0%,
+		rgba(29, 41, 62, 0.55) 45%,
+		rgba(29, 41, 62, 0.92) 100%
+	);
+	height: 70%;
+}
+
+.feature_blog_post .home1_blog_post.style4 .thumb .overlay {
+	height: 85%;
+}
+
+.feature_blog_post .home1_blog_post .details .title,
+.feature_blog_post .home1_blog_post .details .title a {
+	color: #ffffff;
+	line-height: 1.3;
+	max-width: 100%;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.feature_blog_post .home1_blog_post.style2 .details .title {
+	font-size: 22px;
+	-webkit-line-clamp: 3;
+	margin-top: 8px;
+	margin-bottom: 6px;
+}
+
+.feature_blog_post .home1_blog_post.style3 .details .title {
+	font-size: 18px;
+	-webkit-line-clamp: 3;
+	margin-top: 6px;
+	margin-bottom: 4px;
+}
+
+.feature_blog_post .home1_blog_post.style4 .details .title {
+	font-size: 15px;
+	-webkit-line-clamp: 2;
+	margin-top: 6px;
+	margin-bottom: 4px;
+}
+
+.feature_blog_post .home1_blog_post .details .post_meta li span {
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }

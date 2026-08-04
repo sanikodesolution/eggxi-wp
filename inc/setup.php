@@ -165,3 +165,93 @@ function eggxi_widgets_init() {
 	);
 }
 add_action( 'widgets_init', 'eggxi_widgets_init' );
+
+/**
+ * Limit sidebar Categories widget to top 10 terms by count.
+ *
+ * @param array $args wp_list_categories args.
+ * @return array
+ */
+function eggxi_limit_sidebar_categories( $args ) {
+	$args['number']       = 10;
+	$args['orderby']      = 'count';
+	$args['order']        = 'DESC';
+	$args['hierarchical'] = 0;
+	$args['depth']        = 1;
+	$args['hide_empty']   = 1;
+	$args['title_li']     = '';
+	return $args;
+}
+add_filter( 'widget_categories_args', 'eggxi_limit_sidebar_categories' );
+add_filter( 'widget_categories_dropdown_args', 'eggxi_limit_sidebar_categories' );
+
+/**
+ * Limit Tag Cloud widgets to 10 tags.
+ *
+ * @param array $args Tag cloud args.
+ * @return array
+ */
+function eggxi_limit_tag_cloud( $args ) {
+	$args['number']   = 10;
+	$args['smallest'] = 12;
+	$args['largest']  = 12;
+	$args['unit']     = 'px';
+	$args['orderby']  = 'count';
+	$args['order']    = 'DESC';
+	return $args;
+}
+add_filter( 'widget_tag_cloud_args', 'eggxi_limit_tag_cloud' );
+
+/**
+ * Limit block-based Categories widgets to 10 terms.
+ *
+ * @param string $block_content Rendered block HTML.
+ * @param array  $block         Block data.
+ * @return string
+ */
+function eggxi_limit_categories_block( $block_content, $block ) {
+	if ( empty( $block_content ) || false === strpos( $block_content, '<li' ) ) {
+		return $block_content;
+	}
+
+	$dom = new DOMDocument();
+	$prev = libxml_use_internal_errors( true );
+	$dom->loadHTML( '<?xml encoding="utf-8" ?>' . $block_content );
+	libxml_clear_errors();
+	libxml_use_internal_errors( $prev );
+
+	$lis = $dom->getElementsByTagName( 'li' );
+	// Collect top-level category items only (direct children of the first ul).
+	$uls = $dom->getElementsByTagName( 'ul' );
+	if ( 0 === $uls->length ) {
+		return $block_content;
+	}
+
+	$top_ul = $uls->item( 0 );
+	$remove = array();
+	$index  = 0;
+	foreach ( $top_ul->childNodes as $child ) {
+		if ( XML_ELEMENT_NODE !== $child->nodeType || 'li' !== strtolower( $child->nodeName ) ) {
+			continue;
+		}
+		$index++;
+		if ( $index > 10 ) {
+			$remove[] = $child;
+		}
+	}
+	foreach ( $remove as $node ) {
+		$node->parentNode->removeChild( $node );
+	}
+
+	$body = $dom->getElementsByTagName( 'body' )->item( 0 );
+	if ( ! $body ) {
+		return $block_content;
+	}
+
+	$html = '';
+	foreach ( $body->childNodes as $child ) {
+		$html .= $dom->saveHTML( $child );
+	}
+	return $html ? $html : $block_content;
+}
+add_filter( 'render_block_core/categories', 'eggxi_limit_categories_block', 10, 2 );

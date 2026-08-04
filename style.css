@@ -4,7 +4,7 @@ Theme URI: https://unlockdesign.com/
 Author: unlockdesign
 Author URI: https://unlockdesign.com/
 Description: Eggxi personal blog theme converted from the Eggxi Bootstrap 5 HTML template.
-Version: 1.1.5
+Version: 1.1.12
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -174,4 +174,318 @@ Tags: blog, custom-logo, custom-menu, featured-images, threaded-comments, transl
 
 .feature_blog_post .home1_blog_post .details .post_meta li span {
 	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+/* Main blog cards (.home1_post_style) — keep titles compact & even */
+.home1_post_style .details .title {
+	font-size: 16px;
+	line-height: 1.35;
+	font-weight: 700;
+	margin-top: 8px;
+	margin-bottom: 0;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.home1_post_style .details .title a {
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+}
+
+.three-grid-slider .owl-item .home1_post_style {
+	height: 100%;
+}
+
+.three-grid-slider .home1_post_style .thumb img {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+}
+
+/* Sidebar search — align input + button (WP default form was broken) */
+.widget_search .eggxi-search-form,
+.home_sidebar .eggxi-search-form,
+.blog-sidebar-home .eggxi-search-form,
+.widget_search form.search-form {
+	display: flex;
+	align-items: stretch;
+	width: 100%;
+	margin: 0 0 30px;
+	gap: 0;
+}
+
+.widget_search .eggxi-search-form label,
+.widget_search form.search-form > label {
+	display: none;
+}
+
+.widget_search .eggxi-search-form .search-field,
+.widget_search form.search-form .search-field,
+.home_sidebar .eggxi-search-form .search-field {
+	flex: 1 1 auto;
+	width: 1%;
+	min-width: 0;
+	height: 48px;
+	margin: 0;
+	border: 1px solid #e5e5e5;
+	border-right: 0;
+	border-radius: 3px 0 0 3px;
+	padding: 0 14px;
+	box-shadow: none;
+}
+
+.widget_search .eggxi-search-form .search-submit,
+.widget_search form.search-form .search-submit,
+.home_sidebar .eggxi-search-form .search-submit {
+	flex: 0 0 auto;
+	height: 48px;
+	margin: 0;
+	padding: 0 18px;
+	border: 0;
+	border-radius: 0 3px 3px 0;
+	line-height: 48px;
+	white-space: nowrap;
+}
+
+/* Sidebar widget lists — tighten long titles */
+.home_sidebar .widget_recent_entries ul li,
+.home_sidebar .widget_recent_comments ul li,
+.blog-sidebar-home .widget_recent_entries ul li,
+.blog-sidebar-home .widget_recent_comments ul li {
+	margin-bottom: 12px;
+	line-height: 1.4;
+	font-size: 14px;
+}
+
+.home_sidebar .saw_title,
+.blog-sidebar-home .saw_title,
+.home_sidebar .widget .widgettitle,
+.home_sidebar .widget h2,
+.blog-sidebar-home .widget h2 {
+	font-size: 20px;
+	margin-top: 0;
+	margin-bottom: 15px;
+}
+
+/* Sidebar widgets — more space between blocks */
+.home_sidebar .widget,
+.blog-sidebar-home .widget,
+.blog_sidebar_panel .widget {
+	margin-bottom: 40px;
+}
+
+/* Keep space under the last widget so content doesn't sit on the footer */
+.home_sidebar .widget:last-child,
+.blog-sidebar-home .widget:last-child,
+.blog_sidebar_panel .widget:last-child {
+	margin-bottom: 60px;
+}
+
+.home_sidebar,
+.blog-sidebar-home {
+	padding-bottom: 40px;
+}
+
+/* Fallback theme category widget spacing */
+.home_sidebar .sidebar_category_widget,
+.blog-sidebar-home .sidebar_category_widget,
+.home_sidebar .sidebar_recent_post_widget,
+.blog-sidebar-home .sidebar_recent_post_widget,
+.home_sidebar .sidebar_about_widget,
+.home_sidebar .sidebar_tag_widget,
+.home_sidebar .sidebar_follow_widget,
+.home_sidebar .sidebar_newslatter_widget {
+	margin-bottom: 40px;
+}
+
+.home_sidebar .sidebar_category_widget:last-child,
+.blog-sidebar-home .sidebar_category_widget:last-child,
+.home_sidebar > *:last-child {
+	margin-bottom: 60px;
+}
+
+/* One scroll-to-top only — hide Qode Essential Addons duplicate */
+#qodef-back-to-top {
+	display: none !important;
+}
+
+/* Categories widget — hard max 10 visible items */
+.widget_categories > ul > li:nth-child(n + 11),
+.widget_categories ul.wp-block-categories-list > li:nth-child(n + 11),
+.wp-block-categories-list > li:nth-child(n + 11),
+.wp-block-categories > li:nth-child(n + 11),
+.home_sidebar .widget_categories ul > li:nth-child(n + 11),
+.blog-sidebar-home .widget_categories ul > li:nth-child(n + 11) {
+	display: none !important;
+}
+
+/* Footer Latest News + Tags — readable on dark footer */
+.ulockd-footer .footer-news-widget,
+.ulockd-footer .footer-tag-widget {
+	margin-bottom: 28px;
+}
+
+.ulockd-footer .footer-news-widget .title,
+.ulockd-footer .footer-tag-widget .title,
+.ulockd-footer .footer-twitter-widget .title,
+.ulockd-footer .footer-link-widget .title,
+.ulockd-footer .footer-about-widget .title,
+.ulockd-footer .footer-flickr-widget .title,
+.ulockd-footer .footer-newsletter-widget .title {
+	color: #ffffff;
+	margin-top: 0;
+	margin-bottom: 18px;
+	font-size: 18px;
+}
+
+.ulockd-footer .ulockd-media-box .media {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	margin-bottom: 18px;
+}
+
+.ulockd-footer .ulockd-media-box .media:last-child {
+	margin-bottom: 0;
+}
+
+.ulockd-footer .footer-news-thumb {
+	flex: 0 0 70px;
+	width: 70px;
+	display: block;
+}
+
+.ulockd-footer .footer-news-thumb img {
+	width: 70px;
+	height: 70px;
+	object-fit: cover;
+	border-radius: 4px;
+	display: block;
+}
+
+.ulockd-footer .ulockd-media-box .media-body {
+	min-width: 0;
+	flex: 1 1 auto;
+}
+
+.ulockd-footer .ulockd-media-box .post-date,
+.ulockd-footer .ulockd-media-box .post-date time {
+	color: #bdbdbd;
+	font-size: 12px;
+	line-height: 1.3;
+}
+
+.ulockd-footer .ulockd-media-box .media-heading,
+.ulockd-footer .ulockd-media-box .media-heading a {
+	color: #f2f2f2 !important;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.35;
+	margin: 4px 0 6px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.ulockd-footer .ulockd-media-box .media-body p {
+	color: #a8a8a8;
+	font-size: 13px;
+	line-height: 1.4;
+	margin: 0;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.ulockd-footer .footer-tag-widget {
+	margin-top: 8px;
+	margin-bottom: 0;
+}
+
+.ulockd-footer .footer-tag-widget .title {
+	margin-bottom: 14px;
+}
+
+.ulockd-footer .footer-tag-widget ul,
+.ulockd-footer .footer-tag-widget .footer-tag-list,
+.ulockd-footer .widget_tag_cloud .tagcloud,
+.ulockd-footer .widget_tag_cloud > div {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.ulockd-footer .footer-tag-widget li,
+.ulockd-footer .widget_tag_cloud a {
+	display: block;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	float: none !important;
+	max-width: 100%;
+	background: transparent !important;
+}
+
+.ulockd-footer .footer-tag-widget li:hover {
+	background: transparent !important;
+}
+
+.ulockd-footer .footer-tag-widget li:nth-child(n + 11) {
+	display: none !important;
+}
+
+.ulockd-footer .footer-tag-widget li a,
+.ulockd-footer .widget_tag_cloud a {
+	display: inline-flex;
+	align-items: center;
+	max-width: 150px;
+	color: #ececec !important;
+	background: #1c1c1c;
+	border: 1px solid #3d3d3d !important;
+	border-radius: 999px;
+	padding: 6px 12px !important;
+	font-size: 12px !important;
+	font-weight: 500;
+	line-height: 1.2;
+	letter-spacing: 0.01em;
+	text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.ulockd-footer .footer-tag-widget li a:hover,
+.ulockd-footer .widget_tag_cloud a:hover {
+	color: #ffffff !important;
+	border-color: var(--eggxi-primary, #427882) !important;
+	background-color: var(--eggxi-primary, #427882) !important;
+}
+
+.ulockd-footer .footer-tag-empty {
+	color: #9a9a9a;
+	font-size: 13px;
+}
+
+.ulockd-footer .footer-twitter-widget p,
+.ulockd-footer .footer-twitter-widget {
+	color: #a8a8a8;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.ulockd-footer .footer-link-widget a {
+	color: #cfcfcf;
+}
+
+.ulockd-footer .footer-link-widget a:hover {
+	color: #ffffff;
 }

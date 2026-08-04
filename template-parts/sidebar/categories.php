@@ -10,7 +10,7 @@ $categories = get_categories(
 		'orderby'    => 'count',
 		'order'      => 'DESC',
 		'hide_empty' => true,
-		'number'     => 12,
+		'number'     => 10,
 	)
 );
 

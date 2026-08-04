@@ -243,7 +243,8 @@
 					$el.owlCarousel({
 						animateIn: $el.data('animateIn'),
 						autoplay: !!$el.data('autoplay') && count > 1,
-						autoHeight: true,
+						/* Multi-item carousels break with autoHeight — titles of uneven length jump the row. */
+						autoHeight: false,
 						autoplayHoverPause: $el.data('autoplayHoverPause'),
 						autoWidth: $el.data('autoWidth'),
 						center: count > 1 ? $el.data('center') : false,

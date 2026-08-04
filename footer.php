@@ -18,11 +18,10 @@ if ( ! eggxi_elementor_location( 'footer' ) ) :
 		</div>
 		<?php get_template_part( 'template-parts/footer/copyright' ); ?>
 	</section>
-
-	<a class="scrollToHome" href="#"><i class="fas fa-home"></i></a>
 	<?php
 endif;
 ?>
+	<a class="scrollToHome" href="#"><i class="fas fa-home"></i></a>
 </div><!-- .wrapper -->
 <?php wp_footer(); ?>
 </body>

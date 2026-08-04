@@ -1,6 +1,6 @@
 <?php
 /**
- * Footer column 3 fallback — Latest News (2 posts) + Tag Cloud.
+ * Footer column 3 fallback — Latest News (2 posts) + Tags.
  *
  * @package Eggxi
  */
@@ -23,19 +23,19 @@ $news = new WP_Query(
 				$news->the_post();
 				?>
 				<div class="media">
-					<a href="<?php the_permalink(); ?>">
+					<a class="footer-news-thumb" href="<?php the_permalink(); ?>">
 						<?php
 						if ( has_post_thumbnail() ) {
 							the_post_thumbnail(
 								'thumbnail',
 								array(
-									'class'   => 'me-3 mr-3',
+									'class'   => 'img-fluid',
 									'loading' => 'lazy',
 								)
 							);
 						} else {
 							printf(
-								'<img class="me-3 mr-3" src="%1$s" alt="%2$s">',
+								'<img class="img-fluid" src="%1$s" alt="%2$s">',
 								esc_url( get_template_directory_uri() . '/assets/images/blog/s1.jpg' ),
 								esc_attr( get_the_title() )
 							);
@@ -49,9 +49,9 @@ $news = new WP_Query(
 							</time>
 						</a>
 						<h5 class="media-heading mt-0">
-							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+							<a href="<?php the_permalink(); ?>"><?php echo esc_html( wp_trim_words( get_the_title(), 10, '…' ) ); ?></a>
 						</h5>
-						<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 8, '...' ) ); ?></p>
+						<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 6, '…' ) ); ?></p>
 					</div>
 				</div>
 			<?php endwhile; ?>
@@ -62,29 +62,29 @@ $news = new WP_Query(
 	</div>
 </div>
 
+<?php
+$footer_tags = get_tags(
+	array(
+		'number'     => 10,
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+		'hide_empty' => true,
+	)
+);
+?>
 <div class="footer-tag-widget">
-	<h4 class="title"><?php esc_html_e( 'Tag Widget', 'eggxi' ); ?></h4>
-	<ul>
-		<?php
-		$tag_cloud = wp_tag_cloud(
-			array(
-				'echo'     => false,
-				'number'   => 12,
-				'smallest' => 12,
-				'largest'  => 12,
-				'unit'     => 'px',
-				'format'   => 'flat',
-			)
-		);
-
-		if ( $tag_cloud ) {
-			// Wrap each tag link in list-inline-item for Eggxi markup.
-			$tag_cloud = preg_replace( '/<a /', '<li class="list-inline-item"><a ', $tag_cloud );
-			$tag_cloud = preg_replace( '/<\/a>/', '</a></li>', $tag_cloud );
-			echo $tag_cloud; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		} else {
-			echo '<li class="list-inline-item">' . esc_html__( 'No tags yet.', 'eggxi' ) . '</li>';
-		}
-		?>
+	<h4 class="title"><?php esc_html_e( 'Tags', 'eggxi' ); ?></h4>
+	<ul class="footer-tag-list ulockd-mb0">
+		<?php if ( ! empty( $footer_tags ) && ! is_wp_error( $footer_tags ) ) : ?>
+			<?php foreach ( $footer_tags as $footer_tag ) : ?>
+				<li>
+					<a href="<?php echo esc_url( get_tag_link( $footer_tag->term_id ) ); ?>" title="<?php echo esc_attr( $footer_tag->name ); ?>">
+						<?php echo esc_html( wp_html_excerpt( $footer_tag->name, 18, '…' ) ); ?>
+					</a>
+				</li>
+			<?php endforeach; ?>
+		<?php else : ?>
+			<li><span class="footer-tag-empty"><?php esc_html_e( 'No tags yet.', 'eggxi' ); ?></span></li>
+		<?php endif; ?>
 	</ul>
 </div>

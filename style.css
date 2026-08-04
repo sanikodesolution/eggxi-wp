@@ -4,7 +4,7 @@ Theme URI: https://unlockdesign.com/
 Author: unlockdesign
 Author URI: https://unlockdesign.com/
 Description: Eggxi personal blog theme converted from the Eggxi Bootstrap 5 HTML template.
-Version: 1.1.13
+Version: 1.1.15
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -529,4 +529,98 @@ Tags: blog, custom-logo, custom-menu, featured-images, threaded-comments, transl
 
 .ulockd-footer .footer-link-widget a:hover {
 	color: #ffffff;
+}
+
+/* Popular Tag sidebar — fix broken fixed-width pills */
+.sidebar_tag_widget .stw_tag_widget {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: left !important;
+}
+
+.sidebar_tag_widget .stw_tag_widget li,
+.sidebar_tag_widget .stw_tag_widget li.list-inline-item,
+.sidebar_tag_widget .stw_tag_widget li.hvr-bgc-thm {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	width: auto !important;
+	min-width: 0;
+	max-width: 100%;
+	height: auto !important;
+	line-height: 1.3 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 1px solid #dedede !important;
+	border-radius: 999px !important;
+	background: #fff;
+	overflow: hidden;
+	float: none !important;
+}
+
+.sidebar_tag_widget .stw_tag_widget li:nth-child(n + 11) {
+	display: none !important;
+}
+
+.sidebar_tag_widget .stw_tag_widget li a {
+	display: block;
+	padding: 8px 14px;
+	color: #555 !important;
+	font-size: 12px !important;
+	font-weight: 500;
+	line-height: 1.3;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: normal;
+	word-break: break-word;
+	text-align: center;
+}
+
+.sidebar_tag_widget .stw_tag_widget li:hover,
+.sidebar_tag_widget .stw_tag_widget li.hvr-bgc-thm:hover {
+	background-color: var(--eggxi-primary, #427882) !important;
+	border-color: var(--eggxi-primary, #427882) !important;
+	cursor: pointer;
+}
+
+.sidebar_tag_widget .stw_tag_widget li:hover a {
+	color: #ffffff !important;
+}
+
+/* Hero home1_slider — prevent blank/collapsed slides */
+.home1_slider .owl-stage {
+	display: flex;
+	align-items: stretch;
+}
+
+.home1_slider .owl-item {
+	float: none;
+}
+
+.home1_slider .owl-item .item,
+.home1_slider .owl-item .home1_blog_post {
+	height: 100%;
+}
+
+.home1_slider .home1_blog_post .thumb {
+	min-height: 420px;
+	background-color: #1d293e;
+}
+
+.home1_slider .home1_blog_post .thumb img {
+	display: block;
+	width: 100%;
+	min-height: 420px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+.home1_slider .owl-item:not(.active) .home1_blog_post .thumb {
+	/* keep peeks visible, never empty white */
+	background-color: #1d293e;
 }

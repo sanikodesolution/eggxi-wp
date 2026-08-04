@@ -4,7 +4,7 @@ Theme URI: https://unlockdesign.com/
 Author: unlockdesign
 Author URI: https://unlockdesign.com/
 Description: Eggxi personal blog theme converted from the Eggxi Bootstrap 5 HTML template.
-Version: 1.1.12
+Version: 1.1.13
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -29,6 +29,47 @@ Tags: blog, custom-logo, custom-menu, featured-images, threaded-comments, transl
 	display: flex;
 	align-items: center;
 	min-height: 60px;
+}
+
+/* Header promo banner — pin to the right */
+.header-middle .row {
+	align-items: center;
+}
+
+.header-middle .header-middle-banner {
+	display: flex !important;
+	justify-content: flex-end !important;
+	align-items: center;
+	width: 100%;
+	text-align: right !important;
+}
+
+.header-middle .header-middle-banner .header_banner,
+.header-middle .header-middle-banner .header-banner-widget {
+	display: block;
+	margin-left: auto;
+	max-width: 100%;
+}
+
+.header-middle .header-middle-banner .header_banner img,
+.header-middle .header-middle-banner .header-banner-widget img {
+	display: block;
+	margin-left: auto;
+	max-width: 100%;
+	height: auto;
+}
+
+@media (max-width: 991.98px) {
+	.header-middle .header-middle-banner {
+		justify-content: center !important;
+		text-align: center !important;
+	}
+
+	.header-middle .header-middle-banner .header_banner img,
+	.header-middle .header-middle-banner .header-banner-widget img {
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 /* Category badges on cards — link text must stay white on teal/orange pills */

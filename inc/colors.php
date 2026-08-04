@@ -141,7 +141,7 @@ function eggxi_enqueue_dynamic_colors() {
 		$logo_h = 200;
 	}
 	$css .= sprintf(
-		'.header-middle .ulockd-main-logo img,.header-middle .custom-logo-link img,.header-middle .custom-logo{max-height:%1$dpx;height:auto;width:auto;}.header-middle .welcm-ht{min-height:%1$dpx;}',
+		'.header-middle .welcm-ht{min-height:%1$dpx;}',
 		$logo_h
 	);
 

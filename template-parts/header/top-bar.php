@@ -73,13 +73,17 @@
 									if ( $lang_html ) {
 										echo $lang_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 									} else {
+										// No Polylang/WPML output yet — show label only (no empty 85px popup).
 										?>
-										<button class="dropbtn" type="button" aria-haspopup="true">
-											<i class="fas fa-globe-americas text-thm"></i> <?php esc_html_e( 'Lang', 'eggxi' ); ?>
+										<button
+											class="dropbtn"
+											type="button"
+											aria-haspopup="false"
+											title="<?php esc_attr_e( 'Install Polylang or WPML to enable languages.', 'eggxi' ); ?>"
+										>
+											<i class="fas fa-globe-americas text-thm" aria-hidden="true"></i>
+											<?php esc_html_e( 'Lang', 'eggxi' ); ?>
 										</button>
-										<div class="dropdown-content">
-											<span class="screen-reader-text"><?php esc_html_e( 'Connect a multilingual plugin to populate languages.', 'eggxi' ); ?></span>
-										</div>
 										<?php
 									}
 									?>

@@ -15,7 +15,15 @@ $shortcode = get_theme_mod( 'eggxi_newsletter_shortcode', '' );
 	<?php else : ?>
 		<form class="subscriber-form" action="#" method="post" onsubmit="return false;">
 			<label class="screen-reader-text" for="eggxi-sidebar-newsletter-email"><?php esc_html_e( 'Email address', 'eggxi' ); ?></label>
-			<input id="eggxi-sidebar-newsletter-email" type="email" name="email" placeholder="<?php esc_attr_e( 'Enter Your Email', 'eggxi' ); ?>" required>
+			<input
+				id="eggxi-sidebar-newsletter-email"
+				type="email"
+				name="email"
+				class="form-control"
+				placeholder="<?php esc_attr_e( 'Enter Your Email', 'eggxi' ); ?>"
+				aria-label="<?php esc_attr_e( 'Email address', 'eggxi' ); ?>"
+				required
+			>
 			<button type="submit" class="btn bgc-thm"><?php esc_html_e( 'Submit', 'eggxi' ); ?></button>
 		</form>
 	<?php endif; ?>

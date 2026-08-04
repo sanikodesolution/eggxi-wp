@@ -149,18 +149,23 @@ function eggxi_the_footer_logo( $show_tagline = true ) {
 
 	if ( has_custom_logo() ) {
 		$logo_id = get_theme_mod( 'custom_logo' );
-		echo wp_get_attachment_image(
+		$logo    = wp_get_attachment_image(
 			$logo_id,
-			'full',
+			'medium',
 			false,
 			array(
 				'class' => 'db-smd m0a-smd custom-logo img-fluid',
 				'alt'   => get_bloginfo( 'name', 'display' ),
 			)
 		);
+		printf(
+			'<a href="%1$s" class="ulockd-footer-logo custom-logo-link" rel="home">%2$s</a>',
+			esc_url( home_url( '/' ) ),
+			$logo // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image is safe.
+		);
 	} else {
 		printf(
-			'<a href="%1$s" class="site-title-link" rel="home"><img class="db-smd m0a-smd" src="%2$s" alt="%3$s"></a>',
+			'<a href="%1$s" class="ulockd-footer-logo site-title-link" rel="home"><img class="db-smd m0a-smd" src="%2$s" alt="%3$s"></a>',
 			esc_url( home_url( '/' ) ),
 			esc_url( get_template_directory_uri() . '/assets/images/footer-logo.png' ),
 			esc_attr( get_bloginfo( 'name', 'display' ) )
@@ -399,10 +404,29 @@ function eggxi_the_category_badge( $tag_class = 'bgc-thm', $post_id = null ) {
  */
 function eggxi_get_post_image_url( $size = 'large', $post_id = null ) {
 	$post_id = $post_id ? $post_id : get_the_ID();
-	$url     = get_the_post_thumbnail_url( $post_id, $size );
+	$url     = '';
+
+	$thumb_id = (int) get_post_thumbnail_id( $post_id );
+	if ( $thumb_id ) {
+		$url = wp_get_attachment_image_url( $thumb_id, $size );
+		if ( ! $url ) {
+			$url = wp_get_attachment_image_url( $thumb_id, 'full' );
+		}
+
+		// Drop broken local attachments so the theme placeholder can take over.
+		if ( $url ) {
+			$file = get_attached_file( $thumb_id );
+			if ( is_string( $file ) && $file && ! file_exists( $file ) ) {
+				$url = '';
+			}
+		}
+	}
 
 	if ( ! $url ) {
-		$url = get_template_directory_uri() . '/assets/images/blog/fp1.jpg';
+		$fallback = in_array( $size, array( 'thumbnail', 'medium' ), true )
+			? '/assets/images/blog/s1.jpg'
+			: '/assets/images/blog/fp1.jpg';
+		$url = get_template_directory_uri() . $fallback;
 	}
 
 	return $url;

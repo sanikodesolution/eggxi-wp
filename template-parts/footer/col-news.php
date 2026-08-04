@@ -24,23 +24,15 @@ $news = new WP_Query(
 				?>
 				<div class="media">
 					<a class="footer-news-thumb" href="<?php the_permalink(); ?>">
-						<?php
-						if ( has_post_thumbnail() ) {
-							the_post_thumbnail(
-								'thumbnail',
-								array(
-									'class'   => 'img-fluid',
-									'loading' => 'lazy',
-								)
-							);
-						} else {
-							printf(
-								'<img class="img-fluid" src="%1$s" alt="%2$s">',
-								esc_url( get_template_directory_uri() . '/assets/images/blog/s1.jpg' ),
-								esc_attr( get_the_title() )
-							);
-						}
-						?>
+						<img
+							class="img-fluid"
+							src="<?php echo esc_url( eggxi_get_post_image_url( 'thumbnail' ) ); ?>"
+							alt="<?php echo esc_attr( get_the_title() ); ?>"
+							width="70"
+							height="70"
+							loading="eager"
+							decoding="async"
+						>
 					</a>
 					<div class="media-body">
 						<a href="<?php the_permalink(); ?>" class="post-date">

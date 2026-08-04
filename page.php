@@ -17,7 +17,7 @@ if ( ! eggxi_elementor_location( 'single' ) ) :
 	?>
 	<main id="primary" class="site-main<?php echo $is_elementor ? ' eggxi-elementor-content' : ''; ?>">
 		<?php if ( ! $is_elementor ) : ?>
-			<div class="container ulockd-pb50">
+			<div class="container ulockd-pt80 ulockd-pb50">
 		<?php endif; ?>
 
 		<?php

@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="col-lg-8">
-				<div class="welcm-ht text-end text-right">
+				<div class="welcm-ht header-middle-banner text-end text-right">
 					<?php eggxi_the_header_banner(); ?>
 				</div>
 			</div>

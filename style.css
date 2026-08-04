@@ -4,7 +4,7 @@ Theme URI: https://unlockdesign.com/
 Author: unlockdesign
 Author URI: https://unlockdesign.com/
 Description: Eggxi personal blog theme converted from the Eggxi Bootstrap 5 HTML template.
-Version: 1.1.15
+Version: 1.1.17
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -592,35 +592,15 @@ Tags: blog, custom-logo, custom-menu, featured-images, threaded-comments, transl
 	color: #ffffff !important;
 }
 
-/* Hero home1_slider — prevent blank/collapsed slides */
-.home1_slider .owl-stage {
-	display: flex;
-	align-items: stretch;
+/* Space between inner page banner and page content */
+body.page .ulockd-inner-home + .site-main > .container,
+body.page-template-default .site-main > .container {
+	padding-top: 80px !important;
 }
 
-.home1_slider .owl-item {
-	float: none;
-}
-
-.home1_slider .owl-item .item,
-.home1_slider .owl-item .home1_blog_post {
-	height: 100%;
-}
-
-.home1_slider .home1_blog_post .thumb {
-	min-height: 420px;
-	background-color: #1d293e;
-}
-
-.home1_slider .home1_blog_post .thumb img {
-	display: block;
-	width: 100%;
-	min-height: 420px;
-	object-fit: cover;
-	border-radius: 5px;
-}
-
-.home1_slider .owl-item:not(.active) .home1_blog_post .thumb {
-	/* keep peeks visible, never empty white */
-	background-color: #1d293e;
+@media (max-width: 767.98px) {
+	body.page .ulockd-inner-home + .site-main > .container,
+	body.page-template-default .site-main > .container {
+		padding-top: 48px !important;
+	}
 }

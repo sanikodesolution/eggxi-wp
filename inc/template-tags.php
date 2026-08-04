@@ -736,12 +736,8 @@ function eggxi_get_page_header_data() {
 	if ( ! $subtitle_bottom ) {
 		$subtitle_bottom = get_theme_mod( 'eggxi_page_banner_subtitle_bottom', '' );
 	}
-	if ( ! $subtitle_top ) {
-		$subtitle_top = get_bloginfo( 'name' );
-	}
-	if ( ! $subtitle_bottom ) {
-		$subtitle_bottom = get_bloginfo( 'description', 'display' );
-	}
+	// Do not fall back to site title/tagline — those clash on tool and marketing pages
+	// (e.g. "Image to SVG" under "EarnDaily | Online Earning…"). Empty = hide the lines.
 
 	if ( ! $bg_url ) {
 		$banner_id = (int) get_theme_mod( 'eggxi_page_banner_image', 0 );

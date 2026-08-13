@@ -937,26 +937,27 @@ function eggxi_get_section_title( $mod_key, $fallback, $acf_key = '' ) {
 }
 
 /**
- * Main blog content query: excludes hero/featured IDs, supports pagination.
+ * Main blog content query: excludes hero/featured IDs, no pagination.
  *
- * Layout budget per page: 6 carousel + 4 two-col + 3 three-col = 13.
+ * Template layout: 3 carousel + growing 2-col grid + 3 bottom overlay cards.
  *
- * @param int $per_page Posts per page.
+ * @param int $per_page Posts to fetch. Use -1 for all remaining posts.
  * @return WP_Query
  */
-function eggxi_get_main_blog_query( $per_page = 13 ) {
-	$per_page = max( 1, absint( $per_page ) );
-	$paged    = get_query_var( 'paged' ) ? (int) get_query_var( 'paged' ) : ( get_query_var( 'page' ) ? (int) get_query_var( 'page' ) : 1 );
-	$exclude  = eggxi_get_displayed_post_ids();
+function eggxi_get_main_blog_query( $per_page = -1 ) {
+	$per_page = (int) $per_page;
+	if ( 0 === $per_page ) {
+		$per_page = -1;
+	}
 
 	return new WP_Query(
 		array(
 			'post_type'           => 'post',
 			'post_status'         => 'publish',
 			'posts_per_page'      => $per_page,
-			'paged'               => max( 1, $paged ),
-			'post__not_in'        => $exclude,
+			'post__not_in'        => eggxi_get_displayed_post_ids(),
 			'ignore_sticky_posts' => 1,
+			'no_found_rows'       => true,
 		)
 	);
 }

@@ -2,14 +2,14 @@
 /**
  * Main blog content (left column) + sidebar shell.
  *
- * Row 1: carousel (.three-grid-slider)
- * Row 2–3: 2-column cards
- * Row 4: 3-column style5 cards
+ * Row 1: carousel (.three-grid-slider) — 3 latest
+ * Row 2+: 2-column cards — remaining latest (grows with new posts)
+ * Last row: 3-column style5 cards — always at the bottom
  *
  * @package Eggxi
  */
 
-$blog_query = eggxi_get_main_blog_query( 13 );
+$blog_query = eggxi_get_main_blog_query();
 
 if ( ! $blog_query->have_posts() ) {
 	return;
@@ -23,9 +23,14 @@ while ( $blog_query->have_posts() ) {
 }
 wp_reset_postdata();
 
-$carousel = array_slice( $posts, 0, 6 );
-$grid_two = array_slice( $posts, 6, 4 );
-$grid_three = array_slice( $posts, 10, 3 );
+$count      = count( $posts );
+$carousel_n = min( 3, $count );
+$bottom_n   = ( ( $count - $carousel_n ) >= 3 ) ? 3 : 0;
+$middle_n   = $count - $carousel_n - $bottom_n;
+
+$carousel   = array_slice( $posts, 0, $carousel_n );
+$grid_two   = array_slice( $posts, $carousel_n, $middle_n );
+$grid_three = $bottom_n ? array_slice( $posts, -$bottom_n ) : array();
 ?>
 <section class="feature_blog_post ulockd-pb30">
 	<div class="container">
@@ -94,26 +99,6 @@ $grid_three = array_slice( $posts, 10, 3 );
 						</div>
 					<?php endforeach; ?>
 					<?php wp_reset_postdata(); ?>
-
-					<?php if ( $blog_query->max_num_pages > 1 ) : ?>
-						<div class="col-lg-12">
-							<nav class="eggxi-pagination ulockd-mb30" aria-label="<?php esc_attr_e( 'Posts pagination', 'eggxi' ); ?>">
-								<?php
-								echo wp_kses_post(
-									paginate_links(
-										array(
-											'total'     => (int) $blog_query->max_num_pages,
-											'current'   => max( 1, (int) ( get_query_var( 'paged' ) ? get_query_var( 'paged' ) : ( get_query_var( 'page' ) ? get_query_var( 'page' ) : 1 ) ) ),
-											'prev_text' => '&laquo;',
-											'next_text' => '&raquo;',
-											'type'      => 'list',
-										)
-									)
-								);
-								?>
-							</nav>
-						</div>
-					<?php endif; ?>
 				</div>
 			</div>
 			<div class="col-xl-4">

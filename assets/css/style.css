@@ -580,7 +580,7 @@ body.wrap-nav-sidebar .wrapper {
       .home1_blog_post .details .post_meta li:first-child {
         margin-right: 15px; }
       .home1_blog_post .details .post_meta li img {
-        display: inline-block; }
+        display: inline-block; width:auto }
       .home1_blog_post .details .post_meta li span {
         color: #ffffff; }
         .home1_blog_post .details .post_meta li span:first-child {

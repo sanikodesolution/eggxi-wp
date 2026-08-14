@@ -4,7 +4,7 @@ Theme URI: https://unlockdesign.com/
 Author: unlockdesign
 Author URI: https://unlockdesign.com/
 Description: Eggxi personal blog theme converted from the Eggxi Bootstrap 5 HTML template.
-Version: 1.1.21
+Version: 1.1.22
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -759,4 +759,173 @@ body.page-template-default .site-main > .container {
 	body.page-template-default .site-main > .container {
 		padding-top: 48px !important;
 	}
+}
+
+/* Contact Form 7 — stacked fields, full-width inputs, theme button */
+.wpcf7,
+.wpcf7 .wpcf7-form {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	clear: both;
+}
+
+.wpcf7 .wpcf7-form::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.wpcf7 .wpcf7-form p,
+.wpcf7 .wpcf7-form .wpcf7-form-control-wrap,
+.wpcf7 .wpcf7-form label {
+	display: block;
+	float: none;
+	width: 100%;
+	max-width: 100%;
+	margin: 0 0 18px;
+	clear: both;
+}
+
+.wpcf7 .wpcf7-form label {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.5;
+	color: #555;
+	margin-bottom: 8px;
+}
+
+.wpcf7 .wpcf7-form br {
+	display: none;
+}
+
+.wpcf7 .wpcf7-form .wpcf7-form-control-wrap {
+	margin-bottom: 0;
+	position: relative;
+}
+
+.wpcf7 .wpcf7-form input[type="text"],
+.wpcf7 .wpcf7-form input[type="email"],
+.wpcf7 .wpcf7-form input[type="url"],
+.wpcf7 .wpcf7-form input[type="tel"],
+.wpcf7 .wpcf7-form input[type="number"],
+.wpcf7 .wpcf7-form input[type="date"],
+.wpcf7 .wpcf7-form input[type="file"],
+.wpcf7 .wpcf7-form select,
+.wpcf7 .wpcf7-form textarea,
+.wpcf7 .wpcf7-form .wpcf7-text,
+.wpcf7 .wpcf7-form .wpcf7-email,
+.wpcf7 .wpcf7-form .wpcf7-select,
+.wpcf7 .wpcf7-form .wpcf7-textarea,
+.wpcf7 .wpcf7-form .wpcf7-number,
+.wpcf7 .wpcf7-form .wpcf7-date,
+.wpcf7 .wpcf7-form .wpcf7-url,
+.wpcf7 .wpcf7-form .wpcf7-tel {
+	display: block;
+	float: none;
+	width: 100% !important;
+	max-width: 100%;
+	height: 50px;
+	margin: 8px 0 0;
+	padding: 12px 18px;
+	border: 1px solid #cccccc;
+	border-radius: 0;
+	background: #fff;
+	box-shadow: none;
+	box-sizing: border-box;
+	color: #333;
+	font-size: 15px;
+	line-height: 1.5;
+	vertical-align: top;
+}
+
+.wpcf7 .wpcf7-form textarea,
+.wpcf7 .wpcf7-form .wpcf7-textarea {
+	height: auto;
+	min-height: 160px;
+	resize: vertical;
+	padding-top: 16px;
+}
+
+.wpcf7 .wpcf7-form input:focus,
+.wpcf7 .wpcf7-form select:focus,
+.wpcf7 .wpcf7-form textarea:focus {
+	border-color: var(--eggxi-primary, #427882);
+	box-shadow: none;
+	outline: none;
+}
+
+.wpcf7 .wpcf7-form .wpcf7-submit,
+.wpcf7 .wpcf7-form input[type="submit"] {
+	display: inline-block;
+	float: none;
+	width: auto;
+	min-width: 165px;
+	height: 50px;
+	margin: 8px 0 0;
+	padding: 0 28px;
+	border: 0;
+	border-radius: 0;
+	background-color: var(--eggxi-primary, #427882);
+	box-shadow: none;
+	color: #ffffff;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	line-height: 50px;
+	text-transform: uppercase;
+	transition: background-color 0.3s ease;
+}
+
+.wpcf7 .wpcf7-form .wpcf7-submit:hover,
+.wpcf7 .wpcf7-form input[type="submit"]:hover,
+.wpcf7 .wpcf7-form .wpcf7-submit:focus,
+.wpcf7 .wpcf7-form input[type="submit"]:focus {
+	background-color: #333333;
+	color: #ffffff;
+	outline: none;
+}
+
+.wpcf7 .wpcf7-form .wpcf7-checkbox,
+.wpcf7 .wpcf7-form .wpcf7-radio,
+.wpcf7 .wpcf7-form .wpcf7-acceptance {
+	display: block;
+	margin-top: 8px;
+}
+
+.wpcf7 .wpcf7-form .wpcf7-list-item {
+	display: block;
+	margin: 0 0 8px;
+}
+
+.wpcf7 .wpcf7-form .wpcf7-list-item input {
+	width: auto !important;
+	height: auto;
+	margin: 0 8px 0 0;
+	padding: 0;
+	border: 0;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.wpcf7 .wpcf7-not-valid-tip {
+	display: block;
+	margin-top: 6px;
+	color: #dc3232;
+	font-size: 13px;
+}
+
+.wpcf7 .wpcf7-response-output {
+	display: block;
+	clear: both;
+	margin: 20px 0 0;
+	padding: 12px 16px;
+	border-width: 2px;
+	border-style: solid;
+}
+
+.wpcf7 .wpcf7-spinner {
+	margin-left: 10px;
+	vertical-align: middle;
 }

@@ -22,17 +22,29 @@ require EGGXI_DIR . '/inc/elementor.php';
 require EGGXI_DIR . '/inc/class-eggxi-nav-walker.php';
 
 /**
- * Replace [year] with the current year (WordPress timezone).
+ * Replace [year] and %currentyear% with the current year (WordPress timezone).
  *
- * @param string $text Text that may contain [year].
+ * %currentyear% matches Rank Math SEO variable syntax.
+ *
+ * @param string $text Text that may contain year placeholders.
  * @return string
  */
 function eggxi_replace_year_placeholder( $text ) {
-	if ( ! is_string( $text ) || false === strpos( $text, '[year]' ) ) {
+	if ( ! is_string( $text ) ) {
 		return $text;
 	}
 
-	return str_replace( '[year]', wp_date( 'Y' ), $text );
+	if ( false === strpos( $text, '[year]' ) && false === strpos( $text, '%currentyear%' ) ) {
+		return $text;
+	}
+
+	$year = (string) wp_date( 'Y' );
+
+	return str_replace(
+		array( '[year]', '%currentyear%' ),
+		array( $year, $year ),
+		$text
+	);
 }
 
 /**
@@ -68,7 +80,33 @@ function eggxi_year_in_document_title( $parts ) {
 add_filter( 'document_title_parts', 'eggxi_year_in_document_title' );
 
 /**
- * [year] shortcode for content, widgets, and Customizer text.
+ * Show current year in post and page content.
+ *
+ * @param string $content Post content.
+ * @return string
+ */
+function eggxi_year_in_content( $content ) {
+	if ( is_admin() ) {
+		return $content;
+	}
+
+	return eggxi_replace_year_placeholder( $content );
+}
+add_filter( 'the_content', 'eggxi_year_in_content' );
+
+/**
+ * Show current year in Customizer footer copyright text.
+ *
+ * @param string $value Copyright text from theme mod.
+ * @return string
+ */
+function eggxi_year_in_footer_copyright( $value ) {
+	return eggxi_replace_year_placeholder( $value );
+}
+add_filter( 'theme_mod_eggxi_footer_copyright', 'eggxi_year_in_footer_copyright' );
+
+/**
+ * [year] and [currentyear] shortcodes for content, widgets, and Customizer text.
  *
  * @return string Current year.
  */
@@ -76,3 +114,4 @@ function eggxi_year_shortcode() {
 	return (string) wp_date( 'Y' );
 }
 add_shortcode( 'year', 'eggxi_year_shortcode' );
+add_shortcode( 'currentyear', 'eggxi_year_shortcode' );
